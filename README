@@ -1,0 +1,5 @@
+MicroViews is a JavaScript library that allows web content authors to easily add platform specific views of EPrints documents to their websites. These include tooltips, mobile views and inline previews.
+
+Development
+
+If you want to test the MicroViews library on your local machine then run bin/server.
