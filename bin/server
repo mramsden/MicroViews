@@ -1,0 +1,57 @@
+#!/usr/bin/env ruby
+
+require 'webrick'
+require 'ftools'
+
+class MicroViewsServlet < WEBrick::HTTPServlet::AbstractServlet
+  def do_GET(request, response)
+    if (request.path.eql? "/" or request.path.eql? "") and File.exists? "build/index.html"
+      filename = "build/index.html"
+    elsif File.exists? "build/#{request.path}"
+      filename = "build/#{request.path}"
+    end
+
+    if filename.nil?
+      response.status = 404
+    else
+      content_type = "text/plain"
+      case File.extname filename
+      when ".html"
+        content_type = "text/html"
+      when ".js"
+        content_type = "text/javascript"
+      when ".css"
+        content_type = "text/css"
+      end
+
+      response.content_type = content_type
+
+      file = File.new("#{filename}", "r")
+      while (line = file.gets)
+        response.body += "#{line}"
+      end
+      file.close
+    end
+  end
+end
+
+puts "Setting up filesystem..."
+Dir.foreach "./lib/html" do |file|
+  unless file.eql? ".." or file.eql? "."
+    puts "Copying ./lib/html/#{file}"
+    File.copy File.new("./lib/html/#{file}").path, "./build/#{file}"
+  end
+end
+
+Dir.foreach "./src" do |file|
+  unless file.eql? ".." or file.eql? "."
+    puts "Copying ./src/#{file}"
+    File.copy File.new("./src/#{file}").path, "./build/#{file}"
+  end 
+end
+puts "Done"
+
+server = WEBrick::HTTPServer.new(:Port => 4567)
+server.mount "/", MicroViewsServlet
+trap("INT") { server.shutdown }
+server.start
