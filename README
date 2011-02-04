@@ -2,4 +2,16 @@ MicroViews is a JavaScript library that allows web content authors to easily add
 
 Development
 
-If you want to test the MicroViews library on your local machine then run bin/server.
+If you want to test the MicroViews library on your local machine then run bin/server. You must run the server from the top level project folder (i.e. the directory containing this README) and the server assumes the existence of a build folder.
+
+Project Structure
+
+bin - This folder contains any scripts to help with building MicroViews.
+
+build - This folder is ignored from version control but it used as the document root for the MicroViews development server.
+
+lib/html - Any html to use in conjunction with the development web server.
+
+lib/js - Any javascript to use in conjunction with the development web server.
+
+src - This is the source for the MicroViews library.

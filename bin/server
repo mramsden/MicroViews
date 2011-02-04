@@ -36,17 +36,32 @@ class MicroViewsServlet < WEBrick::HTTPServlet::AbstractServlet
 end
 
 puts "Setting up filesystem..."
+unless File.exists? "./build"
+  Dir.mkdir "./build"
+end
+
+unless File.exists? "./build/js"
+  Dir.mkdir "./build/js"
+end
+
 Dir.foreach "./lib/html" do |file|
   unless file.eql? ".." or file.eql? "."
-    puts "Copying ./lib/html/#{file}"
+    puts "Copying ./lib/html/#{file} to ./build/#{file}"
     File.copy File.new("./lib/html/#{file}").path, "./build/#{file}"
+  end
+end
+
+Dir.foreach "./lib/js" do |file|
+  unless file.eql? ".." or file.eql? "."
+    puts "Copying ./lib/js/#{file} to ./build/js/#{file}"
+    File.copy File.new("./lib/js/#{file}").path, "./build/js/#{file}"
   end
 end
 
 Dir.foreach "./src" do |file|
   unless file.eql? ".." or file.eql? "."
-    puts "Copying ./src/#{file}"
-    File.copy File.new("./src/#{file}").path, "./build/#{file}"
+    puts "Copying ./src/#{file} to ./build/js/#{file}"
+    File.copy File.new("./src/#{file}").path, "./build/js/#{file}"
   end 
 end
 puts "Done"

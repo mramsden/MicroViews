@@ -17,10 +17,8 @@ var MicroViews = function($) {
    * Initialises the MicroViews library.
    */
   _mv.init = function(userOpts) {
-    console.log("Initialising MicroViews");
     opts = userOpts;
     if (!isJQueryAvailable()) {
-      console.log("Will load jQuery");
       // We will need to load jQuery before continuing.
       var script = document.createElement("script");
       script.setAttribute("type", "text/javascript");
@@ -42,7 +40,7 @@ var MicroViews = function($) {
   }
 
   _mv.parse = function() {
-    console.log("MicroViews ready");
+	
   }
 
   return _mv;
