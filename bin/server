@@ -44,6 +44,10 @@ unless File.exists? "./build/js"
   Dir.mkdir "./build/js"
 end
 
+unless File.exists? "./build/css"
+  Dir.mkdir "./build/css"
+end
+
 Dir.foreach "./lib/html" do |file|
   unless file.eql? ".." or file.eql? "."
     puts "Copying ./lib/html/#{file} to ./build/#{file}"
@@ -55,6 +59,13 @@ Dir.foreach "./lib/js" do |file|
   unless file.eql? ".." or file.eql? "."
     puts "Copying ./lib/js/#{file} to ./build/js/#{file}"
     File.copy File.new("./lib/js/#{file}").path, "./build/js/#{file}"
+  end
+end
+
+Dir.forach "./lib/css" do |file|
+  unless file.eql? ".." or file.eql? "."
+    puts "Copying ./lib/css/#{file} to ./build/css/#{file}"
+    File.copy File.new("./lib/css/#{file}").path, "./build/css/#{file}"
   end
 end
 
