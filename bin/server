@@ -62,7 +62,7 @@ Dir.foreach "./lib/js" do |file|
   end
 end
 
-Dir.forach "./lib/css" do |file|
+Dir.foreach "./lib/css" do |file|
   unless file.eql? ".." or file.eql? "."
     puts "Copying ./lib/css/#{file} to ./build/css/#{file}"
     File.copy File.new("./lib/css/#{file}").path, "./build/css/#{file}"
